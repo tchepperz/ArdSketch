@@ -39,7 +39,7 @@ void checkSD(){
 	// (10 on most Arduino boards, 53 on the Mega) must be left as an output 
 	// or the SD library functions will not work.
 
-	while(!SD.begin(53)){										// change this to 10 on uno
+	while(!SD.begin(53)){								// change this to 10 on uno
 		Serial.println("Please insert SD card...\n");
 		delay(1000);
 	}
@@ -51,16 +51,16 @@ void checkSD(){
 void openFileSD(){
 
 	String fileName = "";
-	char fileNameChar[100]={0};									// char array for SD functions arguments
+	char fileNameChar[100]={0};						// char array for SD functions arguments
 
 	Serial.println("Enter name for a gcode file on SD : \n");
 	emptySerialBuf(0);
 	fileName=getSerial(0);
 
-	for(int i=0;fileName.charAt(i)!='\n';i++)					//convert String in char array removing '\n'
+	for(int i=0;fileName.charAt(i)!='\n';i++)				//convert String in char array removing '\n'
 		fileNameChar[i]=fileName.charAt(i);
 
-	if(!SD.exists(fileNameChar)){								//check if file elready exists
+	if(!SD.exists(fileNameChar)){										//check if file elready exists
 		Serial.print("-- ");
 		Serial.print(fileNameChar);
 		Serial.print(" doesn't exists");
@@ -152,10 +152,10 @@ void sendGcode(){
     emptySerialBuf(1);
     if(myFile){                                                                      
 	    while(myFile.available()){          				//until the file's end
-	    	line = readLine(myFile);                        //read line in gcode file 
-	      	Serial.print(line);                             //send to serials
+	    	line = readLine(myFile);                  //read line in gcode file 
+	      	Serial.print(line);                     //send to serials
 	      	Serial1.print(line);
-	      	Serial.print(getSerial(1));						//print grbl return on serial
+	      	Serial.print(getSerial(1));							//print grbl return on serial
 		}
 	}
 	else
