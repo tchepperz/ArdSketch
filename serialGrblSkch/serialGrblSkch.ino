@@ -14,9 +14,9 @@ File myFile;
 boolean restart = true;		
 
 void setup(){
+
 	Serial.begin(115200);
 	Serial1.begin(115200);
-
 }
 
 
@@ -32,43 +32,43 @@ void loop(){
 
 
 void checkSD(){
-  // Check if SD card is OK
-  // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
-  // Note that even if it's not used as the CS pin, the hardware SS pin 
-  // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
-  // or the SD library functions will not work.
-  while(!SD.begin(53))		// change this to 10 on uno
-  {
-    Serial.println("Please insert SD card...\n");
-    delay(1000);
-  }
-   
-  Serial.println("SD card OK...\n");
-  delay(1000);
+
+	// Check if SD card is OK
+
+	// On the Ethernet Shield, CS is pin 4. It's set as an output by default.
+	// Note that even if it's not used as the CS pin, the hardware SS pin 
+	// (10 on most Arduino boards, 53 on the Mega) must be left as an output 
+	// or the SD library functions will not work.
+
+	while(!SD.begin(53)){										// change this to 10 on uno
+		Serial.println("Please insert SD card...\n");
+		delay(1000);
+	}
+
+	Serial.println("SD card OK...\n");
+	delay(1000);
 }
 
 void openFileSD(){
 
 	String fileName = "";
-	char fileNameChar[100]={0};		// char array for SD functions arguments
+	char fileNameChar[100]={0};									// char array for SD functions arguments
 
 	Serial.println("Enter name for a gcode file on SD : \n");
 	emptySerialBuf(0);
 	fileName=getSerial(0);
 
-	for(int i=0;fileName.charAt(i)!='\n';i++)		//convert String in char array removing '\n'
+	for(int i=0;fileName.charAt(i)!='\n';i++)					//convert String in char array removing '\n'
 		fileNameChar[i]=fileName.charAt(i);
 
-	if(!SD.exists(fileNameChar)){					//check if file elready exists
+	if(!SD.exists(fileNameChar)){								//check if file elready exists
 		Serial.print("-- ");
 		Serial.print(fileNameChar);
 		Serial.print(" doesn't exists");
 		Serial.println(" --");
 		Serial.println("Please select another file\n");
-		
       	delay(200);
       	openFileSD();
-
     } 
     else{
      	myFile = SD.open(fileNameChar, FILE_READ);		//create a new file
@@ -81,19 +81,25 @@ void openFileSD(){
 }
 
 void emptySerialBuf(int serialNum){
-	//Empty Serial buffer, argument serialNum for Serial port number
+
+	//Empty Serial buffer
+	
+
 	if(serialNum==0){
 	 	while(Serial.available())                      
 			Serial.read();
 	}
 	else if(serialNum==1){
 		while(Serial1.available())                      
-    		Serial1.read();
+    	Serial1.read();
     }
 }
 
 void waitSerial(int serialNum){
-	// Wait for data on Serial, argument serialNum for Serial port number
+
+	// Wait for data on Serial
+	//Argument serialNum for Serial number
+
  	boolean serialAv = false;
 
  	if(serialNum==0){
@@ -111,10 +117,13 @@ void waitSerial(int serialNum){
 }
 
 String getSerial(int serialNum){
-	//Return String  from serial line reading, argument serialNum for Serial port number
+
+	//Return String  from serial line reading
+	//Argument serialNum for Serial number
 
 	String inLine = "";
 	waitSerial(serialNum);
+
 	if(serialNum==0){
 		while(Serial.available()){              
 			inLine += (char)Serial.read();
@@ -122,24 +131,24 @@ String getSerial(int serialNum){
 		}
 		return inLine;
 	}
-
 	else if(serialNum==1){
 		while(Serial1.available()){               
     		inLine += (char)Serial1.read();
     		delay(2);
  		}
-	return inLine;
+		return inLine;
 	}
 }
 
 void sendGcode(){
+
 	/*READING GCODE FILE AND SEND ON SERIAL PORT TO GRBL*/
 
 	//START GCODE SENDING PROTOCOL ON SERIAL 1
 
 	String line = "";
 
-    Serial1.print("\r\n\r\n");                           //Wake up grbl
+    Serial1.print("\r\n\r\n");                           	//Wake up grbl
     delay(2);
     emptySerialBuf(1);
     if(myFile){                                                                      
@@ -159,12 +168,15 @@ void sendGcode(){
 }
 
 void fileError(){
+
 	// For file open or read error
+
 	Serial.println("\n");
 	Serial.println("File Error !");
 }
 
 String readLine(File f){
+	
 	//return line from file reading
   
 	char inChar;
