@@ -4,8 +4,7 @@ mega and stream it via Serial to an arduino uno which is
 running grbl. You need to launch serial
 monitor to interact with the program.
 You can replace the serial monitor interface by any
-LCD touchscreen interface and then you have CNC without any 
-computer.
+LCD touchscreen interface and then you have CNC without any computer.
 Enjoy!*/
 
 #include <SD.h>
