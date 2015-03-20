@@ -1,6 +1,9 @@
 /*Here is a basic arduino sketch to show how 
-open a gcode file from sd card reader connected to an Arduino
+open a gcode file from sd card reader connected to an Arduino Mega
 and stream code via Serial to an other Arduino which is running grbl.
+The arduino running this program must have several Serial ports.
+
+Here arduino uno run Grbl and Mega run this program
 
 The Arduino Uno has one Serial port:
 Serial on pins 0(RX) and 1(TX)
@@ -50,7 +53,7 @@ void checkSD(){
 	// (10 on most Arduino boards, 53 on the Mega) must be left as an output 
 	// or the SD library functions will not work.
 
-	while(!SD.begin(53)){					// change this to 10 on uno
+	while(!SD.begin(53)){
 		Serial.println("Please insert SD card...\n");
 		delay(1000);
 	}
