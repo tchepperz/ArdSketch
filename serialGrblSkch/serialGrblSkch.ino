@@ -1,10 +1,21 @@
-/*Here is a little arduino sketch which
-open a gcode file from sd card reader connected to arduino
-mega and stream it via Serial to an arduino uno which is 
-running grbl. You need to launch serial
-monitor to interact with the program.
+/*Here is a basic arduino sketch to show how 
+open a gcode file from sd card reader connected to an Arduino
+and stream code via Serial to an other Arduino which is running grbl.
+
+The Arduino Uno has one Serial port:
+Serial on pins 0(RX) and 1(TX)
+The Arduino Mega has four serial ports: 
+Serial on pins 0(RX) and 1(TX), Serial1 on pins 19 (RX) and 18 (TX), 
+Serial2 on pins 17 (RX) and 16 (TX),Serial3 on pins 15 (RX) and 14 (TX).
+
+The 2 arduino must be connected between them as this:
+RX(uno) to TX(Mega) and TX(Uno) to RX(Mega) and GND to GND.
+
+You need to launch serial monitor to interact with the program.
+
 You can replace the serial monitor interface by any
-LCD touchscreen interface and then you have CNC without any computer.
+LCD touchscreen interface and then you almost have a CNC without any computer.
+
 Enjoy!*/
 
 #include <SD.h>
