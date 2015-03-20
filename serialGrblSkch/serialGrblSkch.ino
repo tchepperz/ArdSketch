@@ -11,7 +11,7 @@ Enjoy!*/
 #include <SD.h>
 
 File myFile;
-boolean restart = false;		
+boolean restart = true;		
 
 void setup(){
 	Serial.begin(115200);
@@ -23,7 +23,7 @@ void setup(){
 void loop(){
 
 	checkSD();
-	while(!restart){
+	while(restart){
 		openFileSD();
 		sendGcode();
 	}
@@ -162,7 +162,6 @@ void fileError(){
 	// For file open or read error
 	Serial.println("\n");
 	Serial.println("File Error !");
-	restart = true;
 }
 
 String readLine(File f){
